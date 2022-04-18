@@ -15,6 +15,15 @@ const FeedbackList = ({ feedback, handleDelete }) => {
         );
       })}
     </div>
+
+    // return (
+    //   <div className="feedback-list">
+    //     {feedback.map((item) => {
+    //       return (
+    //         <FeedbackItem handleDelete={handleDelete} key={item.id} item={item} />
+    //       );
+    //     })}
+    //   </div>
   );
 };
 
