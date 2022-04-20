@@ -1,15 +1,23 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Button from "./Button";
 import RatingSelect from "./RatingSelect";
 import Card from "./shared/Card";
 import FeedbackContext from "../context/FeedbackContext";
 
 const FeedbackForm = () => {
-  const { addFeedback } = useContext(FeedbackContext);
+  const { addFeedback, feedbackToEdit } = useContext(FeedbackContext);
   const [text, setText] = useState("");
   const [rating, setRating] = useState(10);
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [msg, setMsg] = useState("");
+
+  useEffect(() => {
+    if (feedbackToEdit.edit) {
+      setBtnDisabled(false);
+      setText(feedbackToEdit.item.text);
+      setRating(feedbackToEdit.item.rating);
+    }
+  }, [feedbackToEdit]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
