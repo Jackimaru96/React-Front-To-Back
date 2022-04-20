@@ -21,10 +21,6 @@ function App() {
     console.log(newFeedback);
   };
 
-  const handleDelete = (id) => {
-    setFeedback(feedback.filter((item) => item.id !== id));
-  };
-
   return (
     <FeedbackProvider>
       <Router>
@@ -38,7 +34,7 @@ function App() {
                 <>
                   <FeedbackForm handleAdd={addFeedback} />
                   <FeedbackStats />
-                  <FeedbackList handleDelete={handleDelete} />
+                  <FeedbackList />
                 </>
               }
             />
