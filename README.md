@@ -1,6 +1,8 @@
 [TOC]
 
-# Section 3 - Components, Props & States
+# Feedback Application
+
+## Section 3 - Components, Props & States
 
 1. Prop Drilling
    1. Passing props from the top to the bottom element
@@ -9,7 +11,7 @@
 
 
 
-# Section 4 - Forms, Validation and Animations
+## Section 4 - Forms, Validation and Animations
 
 1. Handling change of input using `onChange` field of `input`
 
@@ -33,7 +35,7 @@
       Or another example. If you set up a click handler for a link and you call `e.preventDefault()` in that click handler, then the browser will not process the click on the link and will not follow the href in the link.
       
 
-# Section 5 - Routes
+## Section 5 - Routes
 
 ```tsx
 <Router>
@@ -48,7 +50,7 @@
 
 
 
-# Section 6 - Context API
+## Section 6 - Context API & Deployment
 
 1. Solves the problem of prop drilling
 
@@ -73,11 +75,17 @@
 
    
 
-3. 
+3. Deploy to Netlify GitHub projects
 
-# `concurrently`: Run multiple commands
+## `concurrently`: Run multiple commands
 
 - Run both ui and server code
 - `npm run dev`
 - "dev": "concurrently \"npm run server\" \"npm run start\""
 - Used the `concurrently` npm package to run multiple commands concurrently
+
+
+
+# Github Finder Project
+
+## Section 8 - Different components

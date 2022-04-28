@@ -2,8 +2,6 @@
 
 # dependencies
 /node_modules
-/feedback/node_modules
-/github-finder/node_modules
 /.pnp
 .pnp.js
 
