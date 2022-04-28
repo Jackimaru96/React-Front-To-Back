@@ -89,3 +89,9 @@
 # Github Finder Project
 
 ## Section 8 - Different components
+
+1. Tailwind CSS - Documentation on the classes used
+   1. [Padding](https://tailwindcss.com/docs/padding)
+   2. [Margin](https://tailwindcss.com/docs/margin)
+   3. [Shadow](https://tailwindcss.com/docs/box-shadow-color)
+2. [Daisy-UI](https://daisyui.com/) - Component library for Tailwind CSS
