@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
-import { FaTimes, FaEdit } from "react-icons/fa";
-import Card from "./shared/Card";
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { FaEdit, FaTimes } from "react-icons/fa";
 import FeedbackContext from "../context/FeedbackContext";
+import Card from "./shared/Card";
 
 const FeedbackItem = ({ item }) => {
   const { deleteFeedback, editFeedback } = useContext(FeedbackContext);
