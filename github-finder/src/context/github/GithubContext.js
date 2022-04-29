@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useCallback } from "react";
 import GithubReducer from "./GithubReducer";
 
 const GithubContext = createContext();
@@ -33,7 +33,7 @@ export const GithubProvider = ({ children }) => {
     const { items } = await response.json();
 
     dispatch({
-      type: "GET_USERS",
+      type: "SEARCH_USERS",
       payload: items,
     });
   };
@@ -42,28 +42,27 @@ export const GithubProvider = ({ children }) => {
   const clearUsers = () =>
     dispatch({
       type: "CLEAR_USERS",
-      payload: [],
     });
 
   // If we add the function as a dependency in
   // children's useEffect() dep array, we need to
   // memoize the function
   // Get initial users (testing function)
-  //   const fetchUsers = useCallback(async () => {
-  //     setLoading();
-  //     const response = await fetch(`${GITHUB_URL}/users`, {
-  //       headers: {
-  //         Authorization: `token ${GITHUB_TOKEN}`,
-  //       },
-  //     });
+  const fetchUsers = useCallback(async () => {
+    setLoading();
+    const response = await fetch(`${GITHUB_URL}/users`, {
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+      },
+    });
 
-  //     const data = await response.json();
+    const data = await response.json();
 
-  //     dispatch({
-  //       type: "GET_USERS",
-  //       payload: data,
-  //     });
-  //   }, []);
+    dispatch({
+      type: "GET_USERS",
+      payload: data,
+    });
+  }, []);
 
   //   const fetchUsers = async () => {
   //     const response = await fetch(`${GITHUB_URL}/users`, {
@@ -87,6 +86,7 @@ export const GithubProvider = ({ children }) => {
         isLoading: state.isLoading,
         searchUsers,
         clearUsers,
+        fetchUsers,
       }}
     >
       {children}

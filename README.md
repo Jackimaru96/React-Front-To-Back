@@ -124,10 +124,16 @@
 
 5. Steps to using Reducer
 
-   1. ```tsx
+   1. `GithubReducer.ts`
+
+      ```tsx
       export const GithubReducer = (state, action) => {
         switch (action.type) {
           case "GET_USERS":
+            return { ...state, users: action.payload, isLoading: false };
+          case "SEARCH_USERS":
+            return { ...state, users: action.payload, isLoading: false };
+          case "CLEAR_USERS":
             return { ...state, users: action.payload, isLoading: false };
           default:
             return state;
@@ -139,6 +145,8 @@
       ```
 
    2. We then need to have an initial state and also change the method in `fetchUsers`
+
+      `GithubContext.ts`
 
       ```tsx
       export const GithubProvider = ({ children }) => {
@@ -165,11 +173,47 @@
             payload: data,
           });
         }, []);
+          
+         // Get search users results
+        const searchUsers = async (text) => {
+          setLoading();
+      
+          const params = new URLSearchParams({
+            q: text,
+          });
+      
+          const response = await fetch(`${GITHUB_URL}/search/users?${params}`, {
+            headers: {
+              Authorization: `token ${GITHUB_TOKEN}`,
+            },
+          });
+      
+          const { items } = await response.json();
+      	
+          // Dispatches an action that updates state in Reducer
+          dispatch({
+            type: "SEARCH_USERS",
+            payload: items,
+          });
+        };
+      
+        // clear search results
+        const clearUsers = () =>
+          dispatch({
+            type: "CLEAR_USERS",
+            payload: [],
+          });
       
       
         return (
-          <GithubContext.Provider
-            value={{ users: state.users, isLoading: state.isLoading, fetchUsers }}
+         <GithubContext.Provider
+            value={{
+              users: state.users,
+              isLoading: state.isLoading,
+              fetchUsers,
+              searchUsers,
+              clearUsers,
+            }}
           >
             {children}
           </GithubContext.Provider>
