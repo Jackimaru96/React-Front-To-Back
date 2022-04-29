@@ -103,3 +103,82 @@
 
 1`.env` file is for environment variables
 
+## Reducers
+
+1. Redux is a third-party state manager as state management solution for React
+
+2. Reducers are there to manage state in application
+
+   1. For e.g. if a user writes something in HTML input field, the application has to manage this UI state
+
+3. A **reducer** is a function that takes in two parameters - the **current state** and an **action** and returns based on both arguments a new state. In a pseudo function it could be expressed as:
+
+   ```jsx
+   (state, action) => newState
+   ```
+
+4. An **action** is typically an object that has a type and the type is basically a string that can be evaluated; it might also have a payload
+
+   1. For example, if its an action to update a blog post, you would include the blog post itself as a payload in that action object
+   2. In our example, we are including the users as a payload in the action object
+
+5. Steps to using Reducer
+
+   1. ```tsx
+      export const GithubReducer = (state, action) => {
+        switch (action.type) {
+          case "GET_USERS":
+            return { ...state, users: action.payload, isLoading: false };
+          default:
+            return state;
+        }
+      };
+      
+      export default GithubReducer;
+      
+      ```
+
+   2. We then need to have an initial state and also change the method in `fetchUsers`
+
+      ```tsx
+      export const GithubProvider = ({ children }) => {
+        const initialState = {
+          users: [],
+          isLoading: true,
+        };
+      
+        const [state, dispatch] = useReducer(GithubReducer, initialState);
+        // If we add the function as a dependency in
+        // children's useEffect() dep array, we need to
+        // memoize the function
+        const fetchUsers = useCallback(async () => {
+          const response = await fetch(`${GITHUB_URL}/users`, {
+            headers: {
+              Authorization: `token ${GITHUB_TOKEN}`,
+            },
+          });
+      
+          const data = await response.json();
+      
+          dispatch({
+            type: "GET_USERS",
+            payload: data,
+          });
+        }, []);
+      
+      
+        return (
+          <GithubContext.Provider
+            value={{ users: state.users, isLoading: state.isLoading, fetchUsers }}
+          >
+            {children}
+          </GithubContext.Provider>
+        );
+      };
+      
+      export default GithubContext;
+      
+      ```
+
+   3. Switched from putting states into use state values to now having reducers that we can dispach actions to and have those actions from this function update the state in whatever way we want
+
