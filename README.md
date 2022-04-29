@@ -95,3 +95,11 @@
    2. [Margin](https://tailwindcss.com/docs/margin)
    3. [Shadow](https://tailwindcss.com/docs/box-shadow-color)
 2. [Daisy-UI](https://daisyui.com/) - Component library for Tailwind CSS
+3. Built `NavBar` and `Footer` using `<nav>` and `<footer>` tags
+
+
+
+## Section 9 - Working with GitHub API
+
+1`.env` file is for environment variables
+
