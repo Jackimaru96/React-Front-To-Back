@@ -226,3 +226,54 @@
 
    3. Switched from putting states into use state values to now having reducers that we can dispach actions to and have those actions from this function update the state in whatever way we want
 
+
+
+# House Marketplace
+
+## Section 14 - Firebase 
+
+### PrivateRoute Component
+
+- `App.js`
+
+```tsx
+function App() {
+  return (
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Explore />} />
+          <Route path="/offers" element={<Offers />} />
+          <Route path="/profile" element={<PrivateRoute />}>
+            <Route path="/profile" element={<Profile />} />
+          </Route>
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+        </Routes>
+        <NavBar />
+      </Router>
+      <ToastContainer />
+    </>
+  );
+}
+
+export default App;
+
+```
+
+- `PrivateRoute.jsx`
+
+```tsx
+import React from "react";
+import { Navigate, Outlet } from "react-router-dom";
+
+const PrivateRoute = () => {
+  const loggedIn = false;
+  return loggedIn ? <Outlet /> : <Navigate to="/sign-in" />;
+};
+
+export default PrivateRoute;
+
+```
+
